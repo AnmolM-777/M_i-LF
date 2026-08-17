@@ -9,6 +9,7 @@ import time
 import argparse
 from engine import KeyboardAudioEngine, GlobalKeyboardListener
 from sound_generator import generate_sound_database
+from cli_menu import run_cli_menu
 
 def parse_args():
     parser = argparse.ArgumentParser(description="M_i-LF — Mechanical Interface Keyboard Sound App")
@@ -25,31 +26,17 @@ def main():
         generate_sound_database()
 
     if args.cli:
-        print("==========================================================")
-        print(" ⌨️  M_i-LF CLI Mode — Global Keyboard Sound Engine")
-        print("==========================================================")
-        engine = KeyboardAudioEngine()
-        engine.set_profile(args.profile)
-        engine.set_volume(args.volume)
-
-        listener = GlobalKeyboardListener(engine)
-        listener.start()
-
-        print(f"[M_i-LF] Active Profile: {args.profile}")
-        print(f"[M_i-LF] Volume: {int(args.volume * 100)}%")
-        print("[M_i-LF] Press Ctrl+C in terminal to stop.")
-
-        try:
-            while True:
-                time.sleep(1)
-        except KeyboardInterrupt:
-            print("\n[M_i-LF] Shutting down...")
-            listener.stop()
-            sys.exit(0)
+        run_cli_menu(profile=args.profile, volume=args.volume)
     else:
-        # Run GUI Mode
-        from gui import run_gui
-        run_gui()
+        # Attempt launching GUI, fallback to interactive CLI menu if Tkinter is not installed
+        try:
+            from gui import run_gui
+            run_gui()
+        except ModuleNotFoundError as e:
+            if "_tkinter" in str(e) or "tkinter" in str(e):
+                run_cli_menu(profile=args.profile, volume=args.volume)
+            else:
+                raise e
 
 if __name__ == "__main__":
     main()
