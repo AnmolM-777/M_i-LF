@@ -1,0 +1,58 @@
+{
+  "active_profile": "cream_thock",
+  "master_volume": 0.8,
+  "pitch_variation": 0.05,
+  "enable_upstroke": true,
+  "profiles": {
+    "cream_thock": {
+      "name": "Creamy Thock",
+      "description": "Lubricated linear switches with deep case thock",
+      "dir": "sounds/cream_thock",
+      "press_regular": "press_regular.wav",
+      "press_space": "press_space.wav",
+      "press_enter": "press_enter.wav",
+      "press_backspace": "press_backspace.wav",
+      "release": "release.wav"
+    },
+    "cherry_mx_blue": {
+      "name": "Cherry MX Blue",
+      "description": "Clicky tactile switch with loud click jacket",
+      "dir": "sounds/cherry_mx_blue",
+      "press_regular": "press_regular.wav",
+      "press_space": "press_space.wav",
+      "press_enter": "press_enter.wav",
+      "press_backspace": "press_backspace.wav",
+      "release": "release.wav"
+    },
+    "typewriter": {
+      "name": "Underwood Typewriter",
+      "description": "1920s iron key strikes with return bell on Enter",
+      "dir": "sounds/typewriter",
+      "press_regular": "press_regular.wav",
+      "press_space": "press_space.wav",
+      "press_enter": "press_enter.wav",
+      "press_backspace": "press_backspace.wav",
+      "release": "release.wav"
+    },
+    "ibm_model_m": {
+      "name": "IBM Model M",
+      "description": "Heavy buckling spring with chassis ping",
+      "dir": "sounds/ibm_model_m",
+      "press_regular": "press_regular.wav",
+      "press_space": "press_space.wav",
+      "press_enter": "press_enter.wav",
+      "press_backspace": "press_backspace.wav",
+      "release": "release.wav"
+    },
+    "bubble_wrap": {
+      "name": "Bubble Wrap",
+      "description": "Satisfying bubble pop sounds",
+      "dir": "sounds/bubble_wrap",
+      "press_regular": "press_regular.wav",
+      "press_space": "press_space.wav",
+      "press_enter": "press_enter.wav",
+      "press_backspace": "press_backspace.wav",
+      "release": "release.wav"
+    }
+  }
+}
