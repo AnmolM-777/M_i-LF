@@ -113,10 +113,10 @@ class GlobalKeyboardListener:
             return  # Ignore OS auto-repeat key events
         self.audio_engine.active_keys.add(key_code)
 
-        # Categorize key type
+        # Categorize key type cleanly
         if key == keyboard.Key.space:
             key_type = "press_space"
-        elif key in (keyboard.Key.enter, keyboard.Key.num_lock):
+        elif key == keyboard.Key.enter:
             key_type = "press_enter"
         elif key == keyboard.Key.backspace:
             key_type = "press_backspace"
