@@ -6,6 +6,50 @@
 
 ---
 
+## 💾 How to Run & Download
+
+### Option 1: One-Click Instant Launch (Easiest)
+
+1. Clone or download this repository.
+2. Double click **`run.sh`** (on macOS / Linux) or **`run.bat`** (on Windows).
+3. The desktop GUI app will launch automatically!
+
+```bash
+# On macOS / Linux:
+chmod +x run.sh
+./run.sh
+
+# On Windows:
+run.bat
+```
+
+---
+
+### Option 2: Download Standalone Executable App (.app / .exe)
+
+You can download pre-compiled standalone executables directly from the **[GitHub Releases](https://github.com/AnmolM-777/M_i-LF/releases)** page:
+
+| Operating System | Download File | Notes |
+| :--- | :--- | :--- |
+| 🍏 **macOS** | [`M_i-LF-macOS.zip`](https://github.com/AnmolM-777/M_i-LF/releases) | Double click `M_i-LF` to open |
+| 🪟 **Windows** | [`M_i-LF-Windows.zip`](https://github.com/AnmolM-777/M_i-LF/releases) | Contains `M_i-LF.exe` standalone |
+| 🐧 **Linux** | [`M_i-LF-Linux.tar.gz`](https://github.com/AnmolM-777/M_i-LF/releases) | Standalone binary |
+
+---
+
+### Option 3: Build Standalone Desktop Executable Yourself
+
+Want to package the app into a standalone binary yourself? Run:
+
+```bash
+pip install -r requirements.txt
+pip install pyinstaller
+python build.py
+```
+The compiled application will be generated in `dist/M_i-LF`.
+
+---
+
 ## ✨ Features
 
 - **System-Wide Background Listening**: Works globally across all desktop apps without needing to keep focus on the app window.
@@ -21,64 +65,11 @@
 
 ---
 
-## 🚀 Quick Start & Installation
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/AnmolM-777/M_i-LF.git
-cd M_i-LF
-```
-
-### 2. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Generate Sound Database
-Synthesize the baseline 44.1kHz sound packs into the `sounds/` directory:
-```bash
-python sound_generator.py
-```
-
-### 4. Run the App
-
-#### Desktop GUI Mode:
-```bash
-python main.py
-```
-
-#### Headless CLI Mode:
-```bash
-python main.py --cli --profile typewriter --volume 0.9
-```
-
----
-
 ## 🛡️ macOS Accessibility Permission
 
 On macOS, operating systems require Accessibility permission for applications that listen for global background keypresses:
 1. Open **System Settings** -> **Privacy & Security** -> **Accessibility**.
-2. Enable access for your terminal application (e.g., `Terminal`, `iTerm`, or `VS Code`) or python binary running the app.
-
----
-
-## 📂 Sound Database Structure (`sounds/`)
-
-You can easily add your own custom sound packs by dropping `.wav` files into `sounds/<your_pack_name>/` and adding a record to `sound_db.json`:
-
-```
-sounds/
-├── cream_thock/
-│   ├── press_regular.wav
-│   ├── press_space.wav
-│   ├── press_enter.wav
-│   ├── press_backspace.wav
-│   └── release.wav
-├── cherry_mx_blue/
-├── typewriter/
-├── ibm_model_m/
-└── bubble_wrap/
-```
+2. Enable access for your terminal application (e.g., `Terminal`, `iTerm`, or `VS Code`) or the `M_i-LF` app binary.
 
 ---
 

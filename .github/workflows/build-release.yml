@@ -1,0 +1,86 @@
+name: Build Standalone Desktop Executables & GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Standalone Executable on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_name: M_i-LF-Linux
+            asset_name: M_i-LF-Linux.tar.gz
+          - os: windows-latest
+            artifact_name: M_i-LF.exe
+            asset_name: M_i-LF-Windows.zip
+          - os: macos-latest
+            artifact_name: M_i-LF
+            asset_name: M_i-LF-macOS.zip
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Standalone App
+        run: |
+          python build.py
+
+      - name: Package Windows Artifact
+        if: matrix.os == 'windows-latest'
+        run: |
+          powershell Compress-Archive -Path dist/M_i-LF.exe -DestinationPath M_i-LF-Windows.zip
+
+      - name: Package macOS Artifact
+        if: matrix.os == 'macos-latest'
+        run: |
+          zip -r M_i-LF-macOS.zip dist/M_i-LF
+
+      - name: Package Linux Artifact
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          tar -czvf M_i-LF-Linux.tar.gz -C dist M_i-LF
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset_name }}
+          path: ${{ matrix.asset_name }}
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            M_i-LF-macOS.zip/M_i-LF-macOS.zip
+            M_i-LF-Windows.zip/M_i-LF-Windows.zip
+            M_i-LF-Linux.tar.gz/M_i-LF-Linux.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
