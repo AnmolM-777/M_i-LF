@@ -3,14 +3,24 @@
 
 echo "🚀 Starting M_i-LF Mechanical Keyboard Sound App..."
 
-# Check Python environment
-if ! command -v python3 &> /dev/null; then
+# Find suitable Python 3 executable (prefer 3.9+)
+PYTHON_CMD=""
+for cmd in python3.12 python3.11 python3.10 python3.9 python3; do
+    if command -v $cmd &> /dev/null; then
+        PYTHON_CMD=$cmd
+        break
+    fi
+done
+
+if [ -z "$PYTHON_CMD" ]; then
     echo "❌ Python 3 is required. Please install Python 3."
     exit 1
 fi
 
-# Install dependencies if missing
-python3 -c "import pygame, pynput" 2>/dev/null || pip3 install -r requirements.txt
+echo "Using Python: $($PYTHON_CMD --version)"
+
+# Check if dependencies are installed, otherwise install with pre-compiled wheels
+$PYTHON_CMD -c "import pygame, pynput" 2>/dev/null || $PYTHON_CMD -m pip install --prefer-binary -r requirements.txt
 
 # Run main application
-python3 main.py
+$PYTHON_CMD main.py

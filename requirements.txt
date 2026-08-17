@@ -1,2 +1,5 @@
 pygame>=2.5.0
 pynput>=1.7.6
+pyobjc-core<=9.2; python_version < "3.9"
+pyobjc-framework-Quartz<=9.2; python_version < "3.9"
+pyobjc-framework-ApplicationServices<=9.2; python_version < "3.9"
