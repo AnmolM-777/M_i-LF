@@ -1,0 +1,11 @@
+*.o
+*.a
+*.out
+*.db
+*.0
+*.1
+a.out
+file1
+file2
+core
+__pycache__/
